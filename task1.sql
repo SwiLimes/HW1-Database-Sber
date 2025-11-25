@@ -20,7 +20,7 @@ CREATE TABLE albums
     id           UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     album_title  VARCHAR(255) NOT NULL,
     release_year INT2,
-    artist_id    INT          NOT NULL,
+    artist_id    UUID          NOT NULL,
     created_at   TIMESTAMP        DEFAULT CURRENT_TIMESTAMP,
 
     -- Внешний ключ на исполнителя
@@ -35,8 +35,8 @@ CREATE TABLE tracks
     duration      INT          NOT NULL,
     listens_count INT              DEFAULT 0,
     release_year  INT2,
-    album_id      INT          NULL,
-    artist_id     INT          NOT NULL,
+    album_id      UUID          NULL,
+    artist_id     UUID          NOT NULL,
     created_at    TIMESTAMP        DEFAULT CURRENT_TIMESTAMP,
 
     FOREIGN KEY (album_id) REFERENCES albums (id) ON DELETE SET NULL ON UPDATE CASCADE,
@@ -46,8 +46,8 @@ CREATE TABLE tracks
 -- Многие-ко-многим между треками и жанрами
 CREATE TABLE track_genre
 (
-    track_id INT NOT NULL,
-    genre_id INT NOT NULL,
+    track_id UUID NOT NULL,
+    genre_id UUID NOT NULL,
 
     -- Составной первичный ключ
     PRIMARY KEY (track_id, genre_id),
